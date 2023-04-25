@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png">
+    <title>Online C++ Compiler</title>
+    <style>
+        body {
+            font-family: "Montserrat", Arial;
+            background-color:#3c404d;
+            font-size: 14px;
+            line-height: 1.4em;
+            font-weight: 400;
+            padding: 0;
+            margin: 0; 
+        }
+        form {
+            margin: 20px;
+            margin-left: 20px;
+        }
+        h1 {
+            text-align: center;
+            font-family:monospace;
+            font-size: 50px;
+            padding-top: 22px;
+        }
+        div {
+            translate: 800px -330px;
+        }
+        fieldset{
+            background-color: seashell;
+            color: black;
+            
+        }
+        .cppcode{
+            background-color: black;
+            color: chartreuse;
+        }
+    </style>
+
+</head>
+<body>
+    <form method="POST" autocomplete="off">
+        <label><h1>C++ Compiler</h1></label><br>
+        <textarea placeholder="Your Code goes here..." class="cppcode" id="cppcode" name="cppcode" rows="20" cols="80"></textarea>
+        <div>
+            <label>Enter Your Input:</label><br>
+            <textarea placeholder="Enter your input..." id="input" name="input" rows="5" cols="20"></textarea><br>
+            <button type="submit">Run >></button>  
+        </div>
+
+    </form>
+    
+    <fieldset>
+        {% if output %}
+        <h2>Output:</h2>
+        <pre>{{ output }}</pre>
+        {% endif %}
+    </fieldset>
+</body>
+</html>
