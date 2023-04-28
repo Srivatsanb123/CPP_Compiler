@@ -5,7 +5,6 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png">
-    <title>Online C++ Compiler</title>
     <style>
         body {
             font-family: "Montserrat", Arial;
@@ -16,9 +15,26 @@
             padding: 0;
             margin: 0; 
         }
+        .compiler{
+            position: absolute;
+            left: 300px;
+            top: 0px;
+        }
+        .history{
+            position: absolute;
+            left:0px;
+            top: 0px;
+            background-color: gray;
+            width: 300px;
+            height:100%;
+        }
+        
+        .precode{
+            margin-left: 5px;
+        }
         form {
             margin: 20px;
-            margin-left: 20px;
+            margin-left: 30px;
         }
         h1 {
             text-align: center;
@@ -26,38 +42,95 @@
             font-size: 50px;
             padding-top: 22px;
         }
-        div {
-            translate: 800px -330px;
-        }
-        fieldset{
-            background-color: seashell;
-            color: black;
-            
+        h2 {
+            font-family:monospace;
+            font-size: 25px;
+            padding-top: 22px;
+            color: cornsilk;
         }
         .cppcode{
             background-color: black;
             color: chartreuse;
         }
-    </style>
+        div{
+            position: absolute;
+            left: 700px;
+            top: 100px;
+        }
+        .outputscr{
+            background-color: black;
+            color: white;
+            width: 200px;
+        }
+        label{
+            color: aliceblue;
+        }
+        button {
+            background-color:crimson;
+            color: #ffffffe4;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+            text-align: center;
+            text-decoration: none;
+        }
+        button:hover {
+            background-color: #666;
+        }
+        a {
+            display: block;
+            color: white;
+            text-align:center;
+            padding: 20px 100px;
+            text-decoration: none;
+            position: absolute;
+            bottom: 5px;
+            
+        }
 
+        a:hover {
+            background-color: #333;
+        }
+    </style>
+    <script src = "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin = "anonymous" referrerpolicy = "no-referrer"> </script>
+    <script>
+        var code
+        function getcode() {
+        code = document.getElementById("cppcode").value;
+        var blob=new Blob([code],{
+            type: "text/plain;charset=utf-8"
+        });
+        saveAs(blob,"cppcode.cpp");
+    }
+    </script>
+    <title>Online C++ Compiler</title>
 </head>
 <body>
+<div class="history">
+    {% if history %}
+    <h2>Last executed code:</h2>
+    <pre class="precode">{{ history[-1][1] }}</pre>
+    <br><br>
+    {% endif %}
+    <a href="http://127.0.0.1:5000/history" target="_blank">View Full History</a>
+</div>
+<div class="compiler">
     <form method="POST" autocomplete="off">
-        <label><h1>C++ Compiler</h1></label><br>
-        <textarea placeholder="Your Code goes here..." class="cppcode" id="cppcode" name="cppcode" rows="20" cols="80"></textarea>
-        <div>
-            <label>Enter Your Input:</label><br>
-            <textarea placeholder="Enter your input..." id="input" name="input" rows="5" cols="20"></textarea><br>
-            <button type="submit">Run >></button>  
-        </div>
-
+        <h1>C++ Compiler</h1><br>
+        <label>Enter Your C++ code:</label><br>
+        <textarea placeholder="Your Code goes here..." class="cppcode" id="cppcode" name="cppcode" rows="20" cols="80">{{cppcode}}</textarea><br><br>
+        <label>Enter Your Input:</label><br>
+        <textarea placeholder="Enter your input..." id="input" name="input" rows="10" cols="40"></textarea><br>
+        <button type="submit" onclick="getcode()">Run >></button>
     </form>
-    
-    <fieldset>
-        {% if output %}
+    <div class="output">
         <h2>Output:</h2>
-        <pre>{{ output }}</pre>
-        {% endif %}
-    </fieldset>
+        <fieldset class="outputscr">
+            {% if output %}
+            <pre>{{ output }}</pre>
+            {% endif %}
+        </fieldset>
+    </div>
+</div>
 </body>
 </html>
