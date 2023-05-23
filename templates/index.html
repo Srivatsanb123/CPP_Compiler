@@ -1,136 +1,142 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png">
-    <style>
-        body {
-            font-family: "Montserrat", Arial;
-            background-color:#3c404d;
-            font-size: 14px;
-            line-height: 1.4em;
-            font-weight: 400;
-            padding: 0;
-            margin: 0; 
-        }
-        .compiler{
-            position: absolute;
-            left: 300px;
-            top: 0px;
-        }
-        .history{
-            position: absolute;
-            left:0px;
-            top: 0px;
-            background-color: gray;
-            width: 300px;
-            height:100%;
-        }
-        
-        .precode{
-            margin-left: 5px;
-        }
-        form {
-            margin: 20px;
-            margin-left: 30px;
-        }
-        h1 {
-            text-align: center;
-            font-family:monospace;
-            font-size: 50px;
-            padding-top: 22px;
-        }
-        h2 {
-            font-family:monospace;
-            font-size: 25px;
-            padding-top: 22px;
-            color: cornsilk;
-        }
-        .cppcode{
-            background-color: black;
-            color: chartreuse;
-        }
-        div{
-            position: absolute;
-            left: 700px;
-            top: 100px;
-        }
-        .outputscr{
-            background-color: black;
-            color: white;
-            width: 200px;
-        }
-        label{
-            color: aliceblue;
-        }
-        button {
-            background-color:crimson;
-            color: #ffffffe4;
-            padding: 10px 20px;
-            border: none;
-            cursor: pointer;
-            text-align: center;
-            text-decoration: none;
-        }
-        button:hover {
-            background-color: #666;
-        }
-        a {
-            display: block;
-            color: white;
-            text-align:center;
-            padding: 20px 100px;
-            text-decoration: none;
-            position: absolute;
-            bottom: 5px;
-            
-        }
-
-        a:hover {
-            background-color: #333;
-        }
-    </style>
-    <script src = "https://cdnjs.cloudflare.com/ajax/libs/FileSaver.js/2.0.0/FileSaver.min.js" integrity="sha512-csNcFYJniKjJxRWRV1R7fvnXrycHP6qDR21mgz1ZP55xY5d+aHLfo9/FcGDQLfn2IfngbAHd8LdfsagcCqgTcQ==" crossorigin = "anonymous" referrerpolicy = "no-referrer"> </script>
-    <script>
-        var code
-        function getcode() {
-        code = document.getElementById("cppcode").value;
-        var blob=new Blob([code],{
-            type: "text/plain;charset=utf-8"
-        });
-        saveAs(blob,"cppcode.cpp");
-    }
-    </script>
-    <title>Online C++ Compiler</title>
-</head>
-<body>
-<div class="history">
-    {% if history %}
-    <h2>Last executed code:</h2>
-    <pre class="precode">{{ history[-1][1] }}</pre>
-    <br><br>
-    {% endif %}
-    <a href="http://127.0.0.1:5000/history" target="_blank">View Full History</a>
-</div>
-<div class="compiler">
-    <form method="POST" autocomplete="off">
-        <h1>C++ Compiler</h1><br>
-        <label>Enter Your C++ code:</label><br>
-        <textarea placeholder="Your Code goes here..." class="cppcode" id="cppcode" name="cppcode" rows="20" cols="80">{{cppcode}}</textarea><br><br>
-        <label>Enter Your Input:</label><br>
-        <textarea placeholder="Enter your input..." id="input" name="input" rows="10" cols="40"></textarea><br>
-        <button type="submit" onclick="getcode()">Run >></button>
-    </form>
-    <div class="output">
-        <h2>Output:</h2>
-        <fieldset class="outputscr">
-            {% if output %}
-            <pre>{{ output }}</pre>
-            {% endif %}
-        </fieldset>
-    </div>
-</div>
-</body>
+    <head>
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png">
+        <style>
+            body {
+                font-family: "Montserrat", Arial;
+                background-color:#3c404d;
+                font-size: 14px;
+                line-height: 1.4em;
+                font-weight: 400;
+                padding: 0;
+                margin: 0; 
+            }
+            form {
+                margin: 20px;
+                margin-left: 30px;
+            }
+            h1 {
+                text-align: center;
+                font-family:monospace;
+                font-size: 50px;
+                padding-top: 22px;
+                color: white;
+            }
+            h2 {
+                font-family:monospace;
+                font-size: 25px;
+                padding-top: 22px;
+                color: cornsilk;
+            }
+            .cppcode{
+                font-family: monospace;
+                background-color: black;
+                color:#8d8e8f;
+            }
+            .outputscr{
+                background-color: black;
+                color: white;
+                width: 200px;
+            }
+            label{
+                color: aliceblue;
+            }
+            button {
+                background-color:crimson;
+                color: #ffffffe4;
+                padding: 10px 20px;
+                border: none;
+                cursor: pointer;
+                text-align: center;
+                text-decoration: none;
+            }
+            button:hover {
+                background-color: #666;
+            }
+            .precode{
+                width: 400px;
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+                white-space: pre-wrap;
+            }
+            a {
+                color: white;
+                padding: 10px 10px;
+                text-decoration: none;
+                position: relative;
+                left: 120px;
+            }
+            a:hover{
+                background-color:black;
+            }
+            table th{
+                text-align: left;
+            }
+            .history{
+                width: 400px;
+                background-color: rgb(52, 52, 52);
+            }
+            .output{
+                position: relative;
+                top: -160px;
+            }
+            .precode{
+                position: relative;
+            }
+        </style>
+        <title>Online C++ Compiler</title>
+    </head>
+    <body>
+        <table>
+            <th class="history">
+                {% if history %}
+                    <pre class="precode"><h2>Last executed code:</h2>{{ history[-1][0] }}</pre>
+                    <br><br>
+                    <a href="./history" target="_blank">View Full History</a>
+                {% endif %}
+            </th>
+            <th><form method="POST" autocomplete="off">
+                <h1>C++ Compiler</h1><br>
+                <label>Enter Your C++ code:</label><br>
+                <textarea placeholder="Your Code goes here..." class="cppcode" id="cppcode" name="cppcode" rows="20" cols="80" required>{% if cppcode %}{{cppcode}}{% else %}#include &lt;iostream&gt;
+using namespace std;
+int main() {
+    
+}{% endif %}</textarea><br><br>
+                <label>Enter Your Input:</label><br>
+                <textarea placeholder="Enter your input..." id="input" name="input" rows="10" cols="40"></textarea><br>
+                <button type="submit">Run >></button>
+            </form></th>
+            <script>
+                function codecheck(){
+                    var cppcode = document.getElementById("cppcode").value;
+                    if (cppcode.includes("main")){
+                        return false;
+                    }
+                    return true;
+                }
+                var form=document.querySelector("form");
+                form.addEventListener("submit", function(e){
+                    e.preventDefault();
+                    if(codecheck()){
+                        alert("The code must contain main() to execute");
+                    }else{
+                        form.submit();
+                    }
+                });
+            </script>
+            <th class="output">
+                <h2>Output:</h2>
+                <fieldset class="outputscr">
+                    {% if output %}
+                    <pre>{{ output }}</pre>
+                    {% endif %}
+                </fieldset>
+            </th>
+        </table>
+    </body>
 </html>
