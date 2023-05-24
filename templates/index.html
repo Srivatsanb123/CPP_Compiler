@@ -13,7 +13,7 @@
                 line-height: 1.4em;
                 font-weight: 400;
                 padding: 0;
-                margin: 0; 
+                margin: 0;
             }
             form {
                 margin: 20px;
@@ -32,15 +32,62 @@
                 padding-top: 22px;
                 color: cornsilk;
             }
-            .cppcode{
-                font-family: monospace;
-                background-color: black;
-                color:#8d8e8f;
+            /* Reset some default textarea styles */
+            .cppcode {
+                border: none;
+                outline: none;
+                resize: none;
+                overflow: auto;
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 14px;
+                padding: 10px;
+                line-height: 1.4;
             }
-            .outputscr{
+
+            /* Apply code editor styles */
+            .cppcode {
+                width: 100%;
+                height: 400px; /* Adjust the height as needed */
+                background-color: #272822;
+                color: #F8F8F2;
+                display: block;
+                white-space: pre;
+                tab-size: 4;
+            }
+
+            /* Add scrollbar styles */
+            .cppcode::-webkit-scrollbar {
+                width: 12px;
+            }
+
+            .cppcode::-webkit-scrollbar-track {
+                background: #272822;
+            }
+
+            .cppcode::-webkit-scrollbar-thumb {
+                background-color: #75715e;
+                border-radius: 6px;
+            }
+            .fieldset-container {
+                width: 100%;
+                overflow-x: auto;
+            }
+            fieldset{
                 background-color: black;
+                height: 200px;
                 color: white;
-                width: 200px;
+            }
+            .fieldset-container::-webkit-scrollbar {
+                width: 12px;
+            }
+
+            .fieldset-container::-webkit-scrollbar-track {
+                background: #272822;
+            }
+
+            .fieldset-container::-webkit-scrollbar-thumb {
+                background-color: #75715e;
+                border-radius: 6px;
             }
             label{
                 color: aliceblue;
@@ -59,9 +106,10 @@
             }
             .precode{
                 width: 400px;
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                white-space: pre-wrap;
+                height:400px;
+                overflow: auto;
+                overflow-x:auto;
+                color: blanchedalmond;
             }
             a {
                 color: white;
@@ -78,40 +126,61 @@
             }
             .history{
                 width: 400px;
-                background-color: rgb(52, 52, 52);
+                background-color: #343434;
             }
-            .output{
-                position: relative;
-                top: -160px;
-            }
-            .precode{
-                position: relative;
+            form table th{
+                padding: 20px;
             }
         </style>
         <title>Online C++ Compiler</title>
     </head>
     <body>
         <table>
+
             <th class="history">
+                <h2>Last executed code:</h2>
                 {% if history %}
-                    <pre class="precode"><h2>Last executed code:</h2>{{ history[-1][0] }}</pre>
+                    <pre class="precode">{{ history[-1][0] }}</pre>
                     <br><br>
                     <a href="./history" target="_blank">View Full History</a>
                 {% endif %}
+
             </th>
+
             <th><form method="POST" autocomplete="off">
+                <table>
+                <th>
                 <h1>C++ Compiler</h1><br>
                 <label>Enter Your C++ code:</label><br>
-                <textarea placeholder="Your Code goes here..." class="cppcode" id="cppcode" name="cppcode" rows="20" cols="80" required>{% if cppcode %}{{cppcode}}{% else %}#include &lt;iostream&gt;
+                <textarea placeholder="Your Code goes here..." class="cppcode" id="cppcode" name="cppcode" rows="20" cols="80"  onkeydown="preventTab(event)" required>{% if cppcode %}{{cppcode}}{% else %}#include &lt;iostream&gt;
 using namespace std;
 int main() {
-    
+
 }{% endif %}</textarea><br><br>
+</th>
+            <th>
                 <label>Enter Your Input:</label><br>
                 <textarea placeholder="Enter your input..." id="input" name="input" rows="10" cols="40"></textarea><br>
                 <button type="submit">Run >></button>
+            </th>
+            </table>
             </form></th>
             <script>
+                // Prevent Tab key from switching focus in the textarea
+                function preventTab(event) {
+                    if (event.key === "Tab") {
+                        event.preventDefault();
+
+                        // Insert a tab character at the caret position
+                        var textarea = event.target;
+                        var start = textarea.selectionStart;
+                        var end = textarea.selectionEnd;
+                        var value = textarea.value;
+
+                        textarea.value = value.substring(0, start) + "\t" + value.substring(end);
+                        textarea.selectionStart = textarea.selectionEnd = start + 1;
+                    }
+                }
                 function codecheck(){
                     var cppcode = document.getElementById("cppcode").value;
                     if (cppcode.includes("main")){
@@ -129,14 +198,16 @@ int main() {
                     }
                 });
             </script>
-            <th class="output">
-                <h2>Output:</h2>
-                <fieldset class="outputscr">
-                    {% if output %}
-                    <pre>{{ output }}</pre>
-                    {% endif %}
-                </fieldset>
-            </th>
+            <br>
         </table>
+        <h2>Output:</h2>
+        <div class="fieldset-container">
+        <fieldset class="outputscr">
+            {% if output %}
+            <pre>{{ output }}</pre>
+            {% endif %}
+        </fieldset>
+        </div>
+        <br><br>
     </body>
 </html>

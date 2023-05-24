@@ -51,7 +51,6 @@ def index():
     conn.close()
     return render_template('index.html', output=output, history=history, cppcode=code)
 
-
 @app.route('/history', methods=['GET', 'POST'])
 def history():
     history = []
