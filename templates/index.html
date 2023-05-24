@@ -104,6 +104,10 @@
             button:hover {
                 background-color: #666;
             }
+            .history{
+                width: 400px;
+                background-color: #343434;
+            }
             .precode{
                 width: 400px;
                 height:400px;
@@ -124,30 +128,23 @@
             table th{
                 text-align: left;
             }
-            .history{
-                width: 400px;
-                background-color: #343434;
-            }
+
             form table th{
-                padding: 20px;
+                padding:0px 20px;
             }
         </style>
         <title>Online C++ Compiler</title>
     </head>
     <body>
         <table>
-
             <th class="history">
                 <h2>Last executed code:</h2>
                 {% if history %}
                     <pre class="precode">{{ history[-1][0] }}</pre>
-                    <br><br>
                     <a href="./history" target="_blank">View Full History</a>
                 {% endif %}
-
             </th>
-
-            <th><form method="POST" autocomplete="off">
+            <th><form method="POST" autocomplete="off" action="#outputscr">
                 <table>
                 <th>
                 <h1>C++ Compiler</h1><br>
@@ -157,57 +154,56 @@ using namespace std;
 int main() {
 
 }{% endif %}</textarea><br><br>
-</th>
+            </th>
             <th>
                 <label>Enter Your Input:</label><br>
                 <textarea placeholder="Enter your input..." id="input" name="input" rows="10" cols="40"></textarea><br>
                 <button type="submit">Run >></button>
+
             </th>
             </table>
             </form></th>
-            <script>
-                // Prevent Tab key from switching focus in the textarea
-                function preventTab(event) {
-                    if (event.key === "Tab") {
-                        event.preventDefault();
-
-                        // Insert a tab character at the caret position
-                        var textarea = event.target;
-                        var start = textarea.selectionStart;
-                        var end = textarea.selectionEnd;
-                        var value = textarea.value;
-
-                        textarea.value = value.substring(0, start) + "\t" + value.substring(end);
-                        textarea.selectionStart = textarea.selectionEnd = start + 1;
-                    }
-                }
-                function codecheck(){
-                    var cppcode = document.getElementById("cppcode").value;
-                    if (cppcode.includes("main")){
-                        return false;
-                    }
-                    return true;
-                }
-                var form=document.querySelector("form");
-                form.addEventListener("submit", function(e){
-                    e.preventDefault();
-                    if(codecheck()){
-                        alert("The code must contain main() to execute");
-                    }else{
-                        form.submit();
-                    }
-                });
-            </script>
-            <br>
         </table>
         <h2>Output:</h2>
         <div class="fieldset-container">
-        <fieldset class="outputscr">
+        <fieldset class="outputscr" id="outputscr">
             {% if output %}
             <pre>{{ output }}</pre>
             {% endif %}
         </fieldset>
         </div>
         <br><br>
+        <script>
+            // Prevent Tab key from switching focus in the textarea
+            function preventTab(event) {
+                if (event.key === "Tab") {
+                    event.preventDefault();
+
+                    // Insert a tab character at the caret position
+                    var textarea = event.target;
+                    var start = textarea.selectionStart;
+                    var end = textarea.selectionEnd;
+                    var value = textarea.value;
+                    textarea.value = value.substring(0, start) + "\t" + value.substring(end);
+                    textarea.selectionStart = textarea.selectionEnd = start + 1;
+                }
+            }
+            function codecheck(){
+                var cppcode = document.getElementById("cppcode").value;
+                if (cppcode.includes("main")){
+                    return false;
+                }
+                return true;
+            }
+            var form=document.querySelector("form");
+            form.addEventListener("submit", function(e){
+                e.preventDefault();
+                if(codecheck()){
+                    alert("The code must contain main() to execute");
+                }else{
+                    form.submit();
+                }
+            });
+        </script>
     </body>
 </html>
