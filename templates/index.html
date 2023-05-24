@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
     <head>
-        <meta charset="UTF-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png">
         <style>
             body {
@@ -15,15 +12,17 @@
                 padding: 0;
                 margin: 0;
             }
-            form {
-                margin: 20px;
-                margin-left: 30px;
+            fieldset{
+                background-color: black;
+                height: 200px;
+                color: white;
             }
             h1 {
                 text-align: center;
                 font-family:monospace;
                 font-size: 50px;
-                padding-top: 22px;
+                padding:50px 0px 50px 0px;
+                margin:0px 0px;
                 color: white;
             }
             h2 {
@@ -32,62 +31,27 @@
                 padding-top: 22px;
                 color: cornsilk;
             }
-            /* Reset some default textarea styles */
-            .cppcode {
-                border: none;
-                outline: none;
-                resize: none;
-                overflow: auto;
-                font-family: 'Courier New', Courier, monospace;
-                font-size: 14px;
-                padding: 10px;
-                line-height: 1.4;
-            }
-
-            /* Apply code editor styles */
-            .cppcode {
-                width: 100%;
-                height: 400px; /* Adjust the height as needed */
-                background-color: #272822;
-                color: #F8F8F2;
-                display: block;
-                white-space: pre;
-                tab-size: 4;
-            }
-
-            /* Add scrollbar styles */
-            .cppcode::-webkit-scrollbar {
-                width: 12px;
-            }
-
-            .cppcode::-webkit-scrollbar-track {
-                background: #272822;
-            }
-
-            .cppcode::-webkit-scrollbar-thumb {
-                background-color: #75715e;
-                border-radius: 6px;
-            }
-            .fieldset-container {
-                width: 100%;
-                overflow-x: auto;
-            }
-            fieldset{
-                background-color: black;
-                height: 200px;
+            a {
                 color: white;
+                padding: 10px 10px;
+                text-decoration: none;
+                position: relative;
+                left: 120px;
             }
-            .fieldset-container::-webkit-scrollbar {
-                width: 12px;
+            a:hover{
+                background-color:black;
             }
-
-            .fieldset-container::-webkit-scrollbar-track {
-                background: #272822;
+            table{
+                margin: 0px 0px;
+                padding: 0px 0px;
+                vertical-align: top;
             }
-
-            .fieldset-container::-webkit-scrollbar-thumb {
-                background-color: #75715e;
-                border-radius: 6px;
+            table th{
+                text-align: left;
+                vertical-align: top;
+            }
+            form table th{
+                padding-left: 20px;
             }
             label{
                 color: aliceblue;
@@ -104,6 +68,51 @@
             button:hover {
                 background-color: #666;
             }
+            .cppcode {
+                border: none;
+                outline: none;
+                resize: none;
+                overflow: auto;
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 14px;
+                padding: 10px;
+                line-height: 1.4;
+                width: 650px;
+                height: 500px;
+                background-color: #272822;
+                color: #F8F8F2;
+                display: block;
+                white-space: pre;
+                tab-size: 4;
+            }
+            .cppcode::-webkit-scrollbar {
+                width: 12px;
+            }
+
+            .cppcode::-webkit-scrollbar-track {
+                background: #272822;
+            }
+
+            .cppcode::-webkit-scrollbar-thumb {
+                background-color: #75715e;
+                border-radius: 6px;
+            }
+            .fieldset-container {
+                width: 100%;
+                overflow-x: auto;
+            }
+            .fieldset-container::-webkit-scrollbar {
+                width: 12px;
+            }
+
+            .fieldset-container::-webkit-scrollbar-track {
+                background: #272822;
+            }
+
+            .fieldset-container::-webkit-scrollbar-thumb {
+                background-color: #75715e;
+                border-radius: 6px;
+            }
             .history{
                 width: 400px;
                 background-color: #343434;
@@ -115,27 +124,11 @@
                 overflow-x:auto;
                 color: blanchedalmond;
             }
-            a {
-                color: white;
-                padding: 10px 10px;
-                text-decoration: none;
-                position: relative;
-                left: 120px;
-            }
-            a:hover{
-                background-color:black;
-            }
-            table th{
-                text-align: left;
-            }
-
-            form table th{
-                padding:0px 20px;
-            }
         </style>
         <title>Online C++ Compiler</title>
     </head>
     <body>
+        <h1>C++ Compiler</h1>
         <table>
             <th class="history">
                 <h2>Last executed code:</h2>
@@ -143,11 +136,11 @@
                     <pre class="precode">{{ history[-1][0] }}</pre>
                     <a href="./history" target="_blank">View Full History</a>
                 {% endif %}
+                <br><br>
             </th>
-            <th><form method="POST" autocomplete="off" action="#outputscr">
+            <th class="compiler"><form method="POST" autocomplete="off" action="#outputscr">
                 <table>
                 <th>
-                <h1>C++ Compiler</h1><br>
                 <label>Enter Your C++ code:</label><br>
                 <textarea placeholder="Your Code goes here..." class="cppcode" id="cppcode" name="cppcode" rows="20" cols="80"  onkeydown="preventTab(event)" required>{% if cppcode %}{{cppcode}}{% else %}#include &lt;iostream&gt;
 using namespace std;
@@ -155,7 +148,7 @@ int main() {
 
 }{% endif %}</textarea><br><br>
             </th>
-            <th>
+            <th class="input">
                 <label>Enter Your Input:</label><br>
                 <textarea placeholder="Enter your input..." id="input" name="input" rows="10" cols="40"></textarea><br>
                 <button type="submit">Run >></button>
