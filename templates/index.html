@@ -1,10 +1,16 @@
 <html>
     <head>
+        <meta charset="utf-8">
         <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.min.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/theme/darcula.min.css">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/mode/clike/clike.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/addon/selection/active-line.min.js"></script>
         <style>
             body {
                 font-family: "Montserrat", Arial;
-                background-color:#3c404d;
+                background-color:#000;
                 font-size: 14px;
                 line-height: 1.4em;
                 font-weight: 400;
@@ -71,38 +77,6 @@
                 overflow-x:auto;
                 color: blanchedalmond;
             }
-            .cppcode {
-                border: none;
-                outline: none;
-                resize: none;
-                overflow: auto;
-                font-family: 'Courier New', Courier, monospace;
-                font-size: 14px;
-                line-height: 1.4;
-                width: 100%;
-                height: 100%;
-                background-color: #272822;
-                color: #F8F8F2;
-                display: block;
-                white-space: pre;
-                tab-size: 4;
-            }
-            .cppcode::-webkit-scrollbar {
-                width: 10px;
-                height: 10px;
-            }
-            .cppcode::-webkit-scrollbar-track {
-                background: #666; 
-            }
-            .cppcode::-webkit-scrollbar-corner {
-                background: #666; 
-            }
-            .cppcode::-webkit-scrollbar-thumb {
-                background: black; 
-            }
-            .cppcode::-webkit-scrollbar-thumb:hover {
-                background: #272822; 
-            }
             .fieldset-container {
                 width: 100%;
                 overflow-x: auto;
@@ -142,6 +116,16 @@
             #input{
                 height: 70px;
             }
+            .code {
+                overflow: auto;
+                height: 100%;
+            }
+
+            .CodeMirror {
+                height: 100%;
+                font-family: 'Courier New', Courier, monospace;
+                font-size: 14px;
+            }
         </style>
         <title>Online C++ Compiler</title>
     </head>
@@ -159,10 +143,9 @@
             </div>
             <div class="code">
                 <label>Enter Your C++ code:</label><br>
-                <textarea placeholder="Your Code goes here..." class="cppcode" id="cppcode" name="cppcode"  onkeydown="preventTab(event)" required>{% if cppcode %}{{cppcode}}{% else %}#include &lt;iostream&gt;
+                <textarea placeholder="Your Code goes here..." id="cppcode" name="cppcode" onkeydown="preventTab(event)" required>{% if cppcode %}{{cppcode}}{% else %}#include &lt;iostream&gt;
 using namespace std;
-int main() {
-
+int main(){
 }{% endif %}</textarea>
             </div>
             <div class="input">
@@ -183,36 +166,39 @@ int main() {
         </div>
         <br><br>
         <script>
-            // Prevent Tab key from switching focus in the textarea
-            function preventTab(event) {
+            var cppCodeMirror = CodeMirror.fromTextArea(document.getElementById("cppcode"), {
+                lineNumbers: true,
+                mode: "text/x-c++src",
+                theme: "darcula",
+                styleActiveLine: true,
+                indentUnit: 4
+            });
+            cppCodeMirror.on("keydown", function (editor, event) {
                 if (event.key === "Tab") {
                     event.preventDefault();
-
-                    // Insert a tab character at the caret position
-                    var textarea = event.target;
-                    var start = textarea.selectionStart;
-                    var end = textarea.selectionEnd;
-                    var value = textarea.value;
-                    textarea.value = value.substring(0, start) + "\t" + value.substring(end);
-                    textarea.selectionStart = textarea.selectionEnd = start + 1;
+                    var cursor = editor.getCursor();
+                    var lineContent = editor.getLine(cursor.line);
+                    editor.replaceRange("\t", { line: cursor.line, ch: 0 }, { line: cursor.line, ch: lineContent.length });
                 }
-            }
-            function codecheck(){
-                var cppcode = document.getElementById("cppcode").value;
-                if (cppcode.includes("main")){
+            });
+            
+            function codecheck() {
+                var cppcode = cppCodeMirror.getValue();
+                if (cppcode.includes("main")) {
                     return false;
                 }
                 return true;
             }
-            var form=document.querySelector("form");
-            form.addEventListener("submit", function(e){
+        
+            var form = document.querySelector("form");
+            form.addEventListener("submit", function (e) {
                 e.preventDefault();
-                if(codecheck()){
+                if (codecheck()) {
                     alert("The code must contain main() to execute");
-                }else{
+                } else {
                     form.submit();
                 }
             });
-        </script>
+        </script>        
     </body>
 </html>
