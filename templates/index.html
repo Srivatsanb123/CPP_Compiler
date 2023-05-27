@@ -14,8 +14,6 @@
                 font-size: 14px;
                 line-height: 1.4em;
                 font-weight: 400;
-                padding: 0;
-                margin: 0;
             }
             fieldset{
                 background-color: black;
@@ -119,17 +117,34 @@
             .code {
                 overflow: auto;
                 height: 100%;
+                width: 100%;
             }
-
+            .outputscr{
+                overflow-x: auto;
+                overflow-y: auto;
+            }
             .CodeMirror {
                 height: 100%;
                 font-family: 'Courier New', Courier, monospace;
                 font-size: 14px;
             }
+            .Logout{
+                background-color: red;
+                padding: 20px 20px;
+                font-size: 16px;
+                text-decoration: none;
+                font-weight: bold;
+                text-align: center;
+                float: right;
+            }
+            .Logout:hover{
+                background-color:#7e0000;
+            }
         </style>
         <title>Online C++ Compiler</title>
     </head>
     <body>
+        <a class="Logout" href="/logout">Logout</a>
         <h1>C++ Compiler</h1>
         <form method="POST" autocomplete="off" action="#outputscr">
         <div class="container">

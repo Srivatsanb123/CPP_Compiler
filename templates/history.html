@@ -8,9 +8,12 @@
         <style>
             body {
                 font-family: Arial, sans-serif;
+                background-color: #1d1e23;
                 margin: 0;
                 padding: 0;
-                background-color: #F2F2F2;
+            }
+            p{
+                color: #CCCCCC;
             }
             pre {
                 font-family: 'Courier New', Courier, monospace;
@@ -18,7 +21,6 @@
                 padding: 10px;
                 border-radius: 5px;
                 box-shadow: 0px 1px 2px #CCCCCC;
-
             }
             hr {
                 border: 0;
@@ -28,35 +30,41 @@
                 margin-bottom: 20px;
             }
             .code{
-                min-width: 800px;
-                min-height: 100px;
                 word-wrap: break-word;
                 overflow-wrap: break-word;
                 white-space: pre-wrap;
+                width: 500px;
+                height:500px;
+                overflow-y: auto;
+                overflow-x:auto;
             }
             .output{
                 background-color: black;
                 color:white;
-                margin: 10px;
-                min-width: 400px;
-                min-height: 100px;
+                width: 500px;
+                height: 500px;
+                overflow-x: auto;
+                overflow-y: auto;
             }
-            table th{
-                text-align: left;
+            .grid{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap:10px;
+            }
+            #code{
+                align-self:center;
             }
         </style>
     </head>
     <body>
         <fieldset>
             {% for code in history %}
-            <table>
-                <th><pre class="code">{{ code[0] }}</pre></th>
-                <th><pre class="output">{{ code[1] }}</pre></th><br>
-            <tr>
-                Date:{{ code[2] }}<br>
-                Time:{{ code[3] }}
-            </tr>
-            </table>
+            <p>Date:{{ code[2] }}<br>Time:{{ code[3] }}</p>
+                <div class="grid">
+                    <div id="code"><pre class="code">{{ code[0] }}</pre></div>
+                    <div id="output"><pre class="output">{{ code[1] }}</pre></div>
+                </div>
+                <hr>
             {% endfor %}
         </fieldset>
     </body>
