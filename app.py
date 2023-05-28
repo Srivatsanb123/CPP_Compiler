@@ -73,15 +73,17 @@ def index():
     time=time[:8]
     conn=sqlite3.connect('users.db')
     c=conn.cursor()
+    file=session['username']+'.cpp'
+    obj=session['username']+'.exe'
     if request.method == 'POST':
-        with open('cppcode.cpp', 'w') as f:
+        with open(file, 'w') as f:
             for line in code.splitlines():
                 f.write(line + '\n')
         try:
-            subprocess.run(['g++', 'cppcode.cpp', '-o', 'cppcode'],  stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
+            subprocess.run(['g++', file, '-o', obj],  stdout=subprocess.PIPE, stderr=subprocess.PIPE, check=True)
         except subprocess.CalledProcessError as error:
             output = error.stderr.decode('utf8')
-            os.remove('cppcode.cpp')
+            os.remove(file)
             c.execute('INSERT INTO '+session['username']+'(code,output,date,time) VALUES (?,?,?,?)', (code,output,date,time))
             conn.commit()
             c.execute('SELECT code,output FROM '+session['username']+' WHERE code IS NOT NULL')
@@ -91,12 +93,12 @@ def index():
             conn.close()
             return render_template('index.html', output=output,history=history,cppcode=code)
         inc = request.form.get('input')
-        process = subprocess.Popen('./cppcode', stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
+        process = subprocess.Popen('./'+obj, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         process.stdin.write(inc)
         out, err = process.communicate()
         output = out + err
-        os.remove('cppcode.cpp')
-        os.remove('cppcode.exe')
+        os.remove(file)
+        os.remove(obj)
     c.execute('INSERT INTO '+session['username']+'(code,output,date,time) VALUES (?,?,?,?)', (code,output,date,time))
     conn.commit()
     c.execute('SELECT code,output FROM '+session['username']+' WHERE code IS NOT NULL')
