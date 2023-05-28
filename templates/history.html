@@ -30,21 +30,12 @@
                 margin-bottom: 20px;
             }
             .code{
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-                white-space: pre-wrap;
-                width: 500px;
-                height:500px;
-                overflow-y: auto;
-                overflow-x:auto;
+                align-self: center;
+                overflow: auto;
             }
             .output{
                 background-color: black;
                 color:white;
-                width: 500px;
-                height: 500px;
-                overflow-x: auto;
-                overflow-y: auto;
             }
             .grid{
                 display: grid;
@@ -52,7 +43,16 @@
                 gap:10px;
             }
             #code{
-                align-self:center;
+                max-height: 500px;
+                max-width: 100%;
+                align-self: center;
+                overflow: auto;
+            }
+            #output{
+                max-height: 500px;
+                max-width: 100%;
+                align-self: center;
+                overflow: auto;
             }
         </style>
     </head>

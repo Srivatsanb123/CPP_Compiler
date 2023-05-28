@@ -115,7 +115,8 @@
                 height: 70px;
             }
             .code {
-                overflow: auto;
+                overflow-x: auto;
+                overflow-y: hidden;
                 height: 100%;
                 width: 100%;
             }
@@ -144,7 +145,8 @@
         <title>Online C++ Compiler</title>
     </head>
     <body>
-        <a class="Logout" href="/logout">Logout</a>
+        <a class="Logout">Logout</a>
+        <script src="{{ url_for('static', filename='js/Logout.js') }}"></script>
         <h1>C++ Compiler</h1>
         <form method="POST" autocomplete="off" action="#outputscr">
         <div class="container">
