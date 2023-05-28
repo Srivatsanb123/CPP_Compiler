@@ -15,11 +15,6 @@
                 line-height: 1.4em;
                 font-weight: 400;
             }
-            fieldset{
-                background-color: black;
-                height: 200px;
-                color: white;
-            }
             h1 {
                 text-align: center;
                 font-family:monospace;
@@ -57,78 +52,72 @@
             label{
                 color: aliceblue;
             }
+
             .container{
-                display: grid;
-                height: 510px;
-                grid-template-columns: 1fr 2fr 1fr;
-                gap: 10px;
+                display: flex;
+                gap: 5px;
             }
+
             .history{
+                flex: 0.7;
+                height: fit-content;
                 background-color:#343434;
-                line-break: normal;
-                height: 100%;
             }
             .precode{
-                width: 400px;
-                height:400px;
-                overflow: auto;
-                overflow-x:auto;
+                width: 20vw;
+                height: 40vh;
                 color: blanchedalmond;
-            }
-            .fieldset-container {
-                width: 100%;
-                overflow-x: auto;
-            }
-            .fieldset::-webkit-scrollbar {
-                width: 10px;
-                height: 10px;
-            }
-            .fieldset::-webkit-scrollbar-track {
-                background: #666; 
-            }
-            .fieldset::-webkit-scrollbar-corner {
-                background: #666;
-            }
-            .fieldset::-webkit-scrollbar-thumb {
-                background: black; 
-            }
-            .fieldset::-webkit-scrollbar-thumb:hover {
-                background: #272822; 
-            }
-            .precode::-webkit-scrollbar {
-                width: 10px;
-                height: 10px;
-            }
-            .precode::-webkit-scrollbar-track {
-                background: #666; 
-            }
-            .precode::-webkit-scrollbar-corner {
-                background: #666;
-            }
-            .precode::-webkit-scrollbar-thumb {
-                background: black; 
-            }
-            .precode::-webkit-scrollbar-thumb:hover {
-                background: #272822; 
-            }
-            #input{
-                height: 70px;
-            }
-            .code {
-                overflow-x: auto;
-                overflow-y: hidden;
-                height: 100%;
-                width: 100%;
-            }
-            .outputscr{
                 overflow-x: auto;
                 overflow-y: auto;
+                padding-left: 5px;
+            }
+
+            .code{
+                flex: 2;
+                max-height: 30vw;
             }
             .CodeMirror {
-                height: 100%;
+                width: 50vw;
+                height: 40vw;
                 font-family: 'Courier New', Courier, monospace;
                 font-size: 14px;
             }
+
+            .input{
+                flex: 0.5;
+            }
+            #input{
+                color: white;
+                height: 70px;
+                background-color: white;
+            }
+
+            .output{
+                height: 200px;
+                overflow-x: auto;
+                overflow-y: auto;
+                border:1px solid aliceblue;
+            }
+            .outputscr{
+                color: white;
+                border: none;
+            }
+
+            *::-webkit-scrollbar {
+                width: 10px;
+                height: 10px;
+                background-color: #1e1e1e;
+            }
+            *::-webkit-scrollbar-thumb {
+                background-color: #444;
+            }
+            *::-webkit-scrollbar-thumb:hover {
+                background-color: #666;
+            }
+            *::-webkit-scrollbar-track-piece {
+                background-color: #1e1e1e;
+            }
+
             .Logout{
                 background-color: red;
                 padding: 20px 20px;
@@ -155,6 +144,8 @@
                 {% if history %}
                     <pre class="precode">{{ history[-1][0] }}</pre>
                     <a href="./history" target="_blank">View Full History</a>
+                {% else %}
+                <p>No Code Executed Yet</p>
                 {% endif %}
                 <br><br>
             </div>
@@ -174,7 +165,7 @@ int main(){
         </form>
         <br><br>
         <h2>Output:</h2>
-        <div class="fieldset-container">
+        <div class="output">
         <fieldset class="outputscr" id="outputscr">
             {% if output %}
             <pre>{{ output }}</pre>

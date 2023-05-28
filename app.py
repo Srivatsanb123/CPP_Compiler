@@ -111,7 +111,7 @@ def index():
 @app.route('/history', methods=['GET', 'POST'])
 def history():
     if 'username' not in session:
-        return render_template('login.html')
+        return redirect('/login')
     history = []
     conn=sqlite3.connect('users.db')
     c=conn.cursor()
@@ -127,5 +127,14 @@ def logout():
     session.pop('username', None)
     return redirect('/')
 
+@app.route('/clear')
+def clear():
+    if 'username' not in session:
+        return redirect('/login')
+    conn=sqlite3.connect('users.db')
+    c=conn.cursor()
+    c.execute('DELETE FROM '+session['username'])
+    conn.commit()
+    return redirect('/')
 if __name__ == '__main__':
     app.run(debug=True)
