@@ -91,7 +91,7 @@ def index():
             for row in rows:
                 history.append(row)
             conn.close()
-            return render_template('index.html', output=output,history=history,cppcode=code)
+            return render_template('index.html',username=session['username'], output=output,history=history,cppcode=code)
         inc = request.form.get('input')
         process = subprocess.Popen('./'+obj, stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.PIPE, universal_newlines=True)
         process.stdin.write(inc)
@@ -106,7 +106,7 @@ def index():
     for row in rows:
         history.append(row)
     conn.close()
-    return render_template('index.html', output=output, history=history, cppcode=code)
+    return render_template('index.html',username=session['username'], output=output, history=history, cppcode=code)
 
 @app.route('/history', methods=['GET', 'POST'])
 def history():

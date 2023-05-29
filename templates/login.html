@@ -2,6 +2,7 @@
 <html>
 	<head>
 		<link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png"/>
+		<script src="{{ url_for('static', filename='js/Login.js') }}"></script>
 		<style>
 			body {
 				margin: 0;
@@ -62,12 +63,12 @@
 	</head>
 	<body>
 		<h1 class="login">Login</h1>
-		<form method="post">
+		<form onsubmit="return validateForm()" method="post">
 			{% if error %}
 				<p>{{ error }}</p>
 			{% endif %}
-			<input type="email" id="email" name="email"  placeholder="Enter email" required><br>
-			<input type="password" id="password" name="password" placeholder="Enter password" required><br>
+			<input type="email" id="email" name="email"  placeholder="Enter email"><br>
+			<input type="password" id="password" name="password" placeholder="Enter password"><br>
 			<input type="submit" value="Login">
 		</form>
 		<br>
