@@ -32,11 +32,22 @@
                 margin-top: 20px;
                 margin-bottom: 20px;
             }
-            .code{
-                font-family:'Courier New', Courier, monospace;
+
+            .grid{
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap:10px;
+            }
+            #code{
+                height:fit-content;
+                width: 100%;
+            }
+            #output{
+                height:fit-content;
+                width: 100%;
             }
             .output{
-                background-color: black;
+                background-color:black;
                 color:white;
             }
             body *::-webkit-scrollbar {
@@ -52,19 +63,6 @@
             }
             body *::-webkit-scrollbar-track-piece {
                 background-color: #1e1e1e;
-            }
-            .grid{
-                display: grid;
-                grid-template-columns: 1fr 1fr;
-                gap:10px;
-            }
-            #code{
-                max-height: 500px;
-                max-width: 100%;
-            }
-            #output{
-                max-height: 500px;
-                max-width: 100%;
             }
             .Clear{
                 background-color: red;
@@ -86,9 +84,9 @@
                 logoutBtn.addEventListener('click', function(event) {
                 event.preventDefault();
                 var confirmLogout = confirm('Are you sure you want to Clear all History?');
-                
+
                 if (confirmLogout) {
-                    window.location.href = './clear';    
+                    window.location.href = './clear';
                     console.log('History Cleared.');
                 }
                 });

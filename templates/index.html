@@ -65,7 +65,7 @@
             }
             .precode{
                 width: 20vw;
-                height: 40vh;
+                height: 30vw;
                 color: blanchedalmond;
                 overflow-x: auto;
                 overflow-y: auto;
@@ -189,7 +189,7 @@ int main(){
                     editor.replaceRange("\t", { line: cursor.line, ch: 0 }, { line: cursor.line, ch: lineContent.length });
                 }
             });
-            
+
             function codecheck() {
                 var cppcode = cppCodeMirror.getValue();
                 if (cppcode.includes("main")) {
@@ -197,7 +197,7 @@ int main(){
                 }
                 return true;
             }
-        
+
             var form = document.querySelector("form");
             form.addEventListener("submit", function (e) {
                 e.preventDefault();
@@ -207,6 +207,6 @@ int main(){
                     form.submit();
                 }
             });
-        </script>        
+        </script>
     </body>
 </html>
