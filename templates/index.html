@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8">
     <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/theme/darcula.min.css">
-    
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/theme/dracula.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.css">   
     <style>
         body {
             font-family: "Montserrat", Arial;
@@ -38,7 +37,9 @@
             padding: 10px;
             text-decoration: none;
         }
-        
+        a:hover{
+            color: #666;
+        }
         
         button {
             background-color: crimson;
@@ -76,6 +77,7 @@
             padding: 10px;
             font-weight: bold;
             text-align: center;
+            align-items: center;
             display: flex;
             flex-direction: column;
             grid-column-start: 4;
@@ -101,14 +103,19 @@
 
         .logout {
             background-color: red;
-            padding: 10px;
+            width:fit-content;
+            height:fit-content;
         }
         .logout:hover {
             background-color: #666;
         }
+        #Logout{
+            text-align:center;
+            padding:10px;
+        }
         .history {
-            width: fit-content;
-            height: fit-content;
+            width: 100%;
+            height: 100%;
             background-color: #343434;
         }
         
@@ -120,13 +127,7 @@
             overflow-y: auto;
             padding-left: 5px;
         }
-        
 
-        .CodeMirror-scroll{
-            height: 30vw;
-            width: 50vw;
-            overflow: auto;
-        }
         #input {
             color: white;
             height: 70px;
@@ -166,12 +167,17 @@
         body *::-webkit-scrollbar-track-piece {
             background-color: #1e1e1e;
         }
-        
+        .CodeMirror {
+            font-family: monospace;
+            height: 35vh;
+            width: 45vw;
+            color: black;
+            direction: ltr;
+        }
     </style>
     <title>Online C++ Compiler</title>
 </head>
 <body>
-
     <form method="POST" autocomplete="off" action="#outputscr">
         <div class="container">
             <div class="profile">
@@ -186,15 +192,16 @@
                     <pre class="precode">{{ history[-1][0] }}</pre>
                     <a href="./history" target="_blank">View Full History</a>
                 {% else %}
-                    <p>No Code Executed Yet</p>
+                    <p style="color: blanchedalmond;">No Code Executed Yet</p>
                 {% endif %}
                 <br><br>
             </div>
             <div class="code">
                 <label>Enter Your C++ code:</label><br>
-                <textarea placeholder="Your Code goes here..." id="cppcode" name="cppcode" required>{% if cppcode %}{{cppcode}}{% else %}#include &lt;iostream&gt;
+                <textarea id="cppcode" name="cppcode" required>{% if cppcode %}{{cppcode}}{% else %}#include &lt;iostream&gt;
 using namespace std;
-int main() {
+int main()
+{
 }{% endif %}</textarea>
             </div>
             <div class="input">
@@ -212,29 +219,20 @@ int main() {
             </div>
         </div>
     </form>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/mode/clike/clike.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/addon/selection/active-line.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/mode/clike/clike.js"></script>
+    <script src="../static/js/Logout.js"></script>
     <script>
-        var cppCodeMirror = CodeMirror.fromTextArea(document.getElementById("cppcode"), {
+        var editor = CodeMirror.fromTextArea(cppcode, {
             lineNumbers: true,
             mode: "text/x-c++src",
-            theme: "darcula",
-            styleActiveLine: true,
-            indentUnit: 4
-        });
-        cppCodeMirror.on("keydown", function (editor, event) {
-            if (event.key === "Tab") {
-                event.preventDefault();
-                var cursor = editor.getCursor();
-                var lineContent = editor.getLine(cursor.line);
-                editor.replaceRange("\t", { line: cursor.line, ch: 0 }, { line: cursor.line, ch: lineContent.length });
-            }
+            indentUnit: 4,
+            indentWithTabs: false,
+            theme: "dracula"
         });
 
         function codecheck() {
-            var cppcode = cppCodeMirror.getValue();
+            var cppcode = editor.getValue();
             if (cppcode.includes("main")) {
                 return false;
             }
@@ -250,7 +248,7 @@ int main() {
                 form.submit();
             }
         });
+
     </script>
-    <script src="../static/js/Logout.js"></script>
 </body>
 </html>
