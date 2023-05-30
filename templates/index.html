@@ -3,8 +3,9 @@
 <head>
     <meta charset="utf-8">
     <link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png">
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/codemirror@5.62.3/theme/dracula.min.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.css">   
+    <link rel="stylesheet" type="text/css" href="../static/codemirror-5.65.13/theme/dracula.css">
+    <link rel="stylesheet" type="text/css" href="../static/codemirror-5.65.13/lib/codemirror.css">
+    <link rel="stylesheet" type="text/css" href="../static/codemirror-5.65.13/addon/scroll/simplescrollbars.css">
     <style>
         body {
             font-family: "Montserrat", Arial;
@@ -15,7 +16,7 @@
             margin: 0;
             padding: 0;
         }
-        
+
         h1 {
             text-align: center;
             font-family: monospace;
@@ -24,23 +25,23 @@
             margin: 0;
             color: white;
         }
-        
+
         h2 {
             font-family: monospace;
             font-size: 25px;
             padding-top: 22px;
             color: cornsilk;
         }
-        
+
         a {
             color: white;
             padding: 10px;
             text-decoration: none;
         }
-        a:hover{
+        a:hover {
             background-color: #666;
         }
-        
+
         button {
             background-color: crimson;
             color: #ffffffe4;
@@ -50,15 +51,15 @@
             text-align: center;
             text-decoration: none;
         }
-        
+
         button:hover {
             background-color: #666;
         }
-        
+
         label {
             color: aliceblue;
         }
-        
+
 
         .container {
             display: grid;
@@ -68,7 +69,7 @@
             gap: 10px;
             grid-template-columns: 1.5fr 3fr 0.5fr 1fr;
         }
-        
+
         .head {
             grid-column: span 3;
         }
@@ -77,7 +78,6 @@
             padding: 10px;
             font-weight: bold;
             text-align: center;
-            align-items: center;
             display: flex;
             flex-direction: column;
             grid-column-start: 4;
@@ -103,22 +103,17 @@
 
         .logout {
             background-color: red;
-            width:fit-content;
-            height:fit-content;
+            padding: 10px;
         }
         .logout:hover {
             background-color: #666;
-        }
-        #Logout{
-            text-align:center;
-            padding:10px;
         }
         .history {
             width: 100%;
             height: 100%;
             background-color: #343434;
         }
-        
+
         .precode {
             max-width: 20vw;
             max-height: 20vw;
@@ -134,12 +129,12 @@
             background-color: #343434;
             border: 1px solid white;
         }
-        
+
         .output {
             grid-column: span 3;
             height: fit-content;
         }
-        
+
         .outputscr {
             color: white;
             height: 200px;
@@ -147,32 +142,45 @@
             overflow-y: auto;
             border: 1px solid aliceblue;
         }
-        
-        body *::-webkit-scrollbar {
+
+        .precode::-webkit-scrollbar {
             width: 10px;
             height: 10px;
             background-color: #1e1e1e;
         }
-        body *::-webkit-scrollbar-corner{
+        .precode::-webkit-scrollbar-corner{
             background-color: #1e1e1e;
         }
-        body *::-webkit-scrollbar-thumb {
+        .precode::-webkit-scrollbar-thumb {
             background-color: #444;
         }
-        
-        body *::-webkit-scrollbar-thumb:hover {
+
+        .precode::-webkit-scrollbar-thumb:hover {
             background-color: #666;
         }
-        
-        body *::-webkit-scrollbar-track-piece {
+
+        .precode::-webkit-scrollbar-track-piece {
             background-color: #1e1e1e;
         }
-        .CodeMirror {
-            font-family: monospace;
-            height: 35vh;
-            width: 45vw;
-            color: black;
-            direction: ltr;
+
+        .outputscr::-webkit-scrollbar {
+            width: 10px;
+            height: 10px;
+            background-color: #1e1e1e;
+        }
+        .outputscr::-webkit-scrollbar-corner{
+            background-color: #1e1e1e;
+        }
+        .outputscr::-webkit-scrollbar-thumb {
+            background-color: #444;
+        }
+
+        .outputscr::-webkit-scrollbar-thumb:hover {
+            background-color: #666;
+        }
+
+        .outputscr::-webkit-scrollbar-track-piece {
+            background-color: #1e1e1e;
         }
     </style>
     <title>Online C++ Compiler</title>
@@ -219,15 +227,22 @@ int main()
             </div>
         </div>
     </form>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/codemirror.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.62.3/mode/clike/clike.js"></script>
+    <script src="../static/codemirror-5.65.13/lib/codemirror.js"></script>
+    <script src="../static/codemirror-5.65.13/addon/edit/matchbrackets.js"></script>
+    <script src="../static/codemirror-5.65.13/mode/clike/clike.js"></script>
+    <script src="../static/codemirror-5.65.13/addon/edit/closebrackets.js"></script>
+    <script src="../static/codemirror-5.65.13/addon/scroll/simplescrollbars.js"></script>
+    <script src="../static/codemirror-5.65.13/mode/markdown/markdown.js"></script>
+    <script src="../static/codemirror-5.65.13/mode/xml/xml.js"></script>
     <script src="../static/js/Logout.js"></script>
     <script>
         var editor = CodeMirror.fromTextArea(cppcode, {
             lineNumbers: true,
             mode: "text/x-c++src",
             indentUnit: 4,
-            indentWithTabs: false,
+            matchBrackets: true,
+            scrollbarStyle: "overlay",
+            autoCloseBrackets:true,
             theme: "dracula"
         });
 
