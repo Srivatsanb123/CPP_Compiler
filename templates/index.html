@@ -34,14 +34,16 @@
         }
 
         a {
-            color: white;
+            color: black;
             padding: 10px;
             text-decoration: none;
         }
         a:hover {
             background-color: #666;
         }
-
+        .history a{
+            background-color: bisque;
+        }
         button {
             background-color: crimson;
             color: #ffffffe4;
@@ -67,7 +69,7 @@
             width:100%;
             height:max-content;
             gap: 10px;
-            grid-template-columns: 1.5fr 3fr 0.5fr 1fr;
+            grid-template-columns: 1.5fr 3fr 0.5fr;
         }
 
         .head {
@@ -138,9 +140,9 @@
         .outputscr {
             color: white;
             height: 200px;
-            overflow-x: auto;
-            overflow-y: auto;
-            border: 1px solid aliceblue;
+            width: 100%;
+            overflow: auto;
+            border: 1px solid whitesmoke;
         }
 
         .precode::-webkit-scrollbar {
@@ -198,7 +200,8 @@
                 <h2>Last executed code:</h2>
                 {% if history %}
                     <pre class="precode">{{ history[-1][0] }}</pre>
-                    <a href="./history" target="_blank">View Full History</a>
+                    <br><br>
+                    <a href="./history" target="_blank"><strong>View Full History</strong></a>
                 {% else %}
                     <p style="color: blanchedalmond;">No Code Executed Yet</p>
                 {% endif %}
@@ -219,11 +222,11 @@ int main()
             </div>
             <div class="output">
                 <h2>Output:</h2>
-                <fieldset class="outputscr" id="outputscr">
+                <div class="outputscr" id="outputscr">
                     {% if output %}
                         <pre>{{ output }}</pre>
                     {% endif %}
-                </fieldset>
+                </div>
             </div>
         </div>
     </form>
