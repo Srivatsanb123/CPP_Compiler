@@ -2,64 +2,7 @@
 <html>
 	<head>
 		<link rel="icon" type="image/x-icon" href="https://upload.wikimedia.org/wikipedia/commons/thumb/1/18/ISO_C%2B%2B_Logo.svg/1200px-ISO_C%2B%2B_Logo.svg.png"/>
-		<script src="{{ url_for('static', filename='js/Signup.js') }}"></script>
-		<style>
-			body {
-				margin: 0;
-				padding: 0;
-				background-color: #000;
-				font-family: Arial, sans-serif;
-			}
-			form {
-				width: 400px;
-				background-color: #fff;
-				padding: 40px;
-				border-radius: 5px;
-				position: center;
-				margin: 0 auto;
-			}
-			.signup {
-				text-align: center;
-				font-size: 2.5em;
-				font-weight: bold;
-				color:white;
-			}
-			.olduser{
-				text-align: center;
-				color: aqua;
-			}
-			a{
-				background-color: #333;
-				color: #fff;
-				padding: 10px 20px;
-				border: none;
-				border-radius: 5px;
-				cursor: pointer;
-				transition: background-color 0.2s ease-in-out;
-			}
-			input[type="text"],
-			input[type="password"],
-			input[type="email"] {
-				width: 100%;
-				padding: 10px;
-				margin-bottom: 20px;
-				border-radius: 5px;
-				border: none;
-				box-shadow: 0px 0px 5px rgba(0,0,0,0.1);
-			}
-			input[type="submit"] {
-				background-color: #333;
-				color: #fff;
-				padding: 10px 20px;
-				border: none;
-				border-radius: 5px;
-				cursor: pointer;
-				transition: background-color 0.2s ease-in-out;
-			}
-			input[type="submit"]:hover {
-				background-color: #555;
-			}
-		</style>
+		<link rel="stylesheet" href="{{ url_for('static', filename='css/signup.css') }}">
 		<title>C++ Compiler</title>
 	</head>
 	<body>
@@ -79,6 +22,6 @@
 		<strong>Already Have an Acount?</strong><br><br>
 		<a href="./login">Login</a>
 		</div>
-
+		<script src="{{ url_for('static', filename='js/signup.js') }}"></script>
 	</body>
 </html>

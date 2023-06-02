@@ -12,7 +12,7 @@ c.close()
 
 app = Flask(__name__)
 
-app.secret_key = '1234'
+app.secret_key = ****
 
 @app.route('/login', methods=['GET','POST'])
 def login():

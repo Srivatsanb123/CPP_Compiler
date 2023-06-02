@@ -1,0 +1,177 @@
+body {
+    font-family: "Montserrat", Arial;
+    background-color: #000;
+    font-size: 14px;
+    line-height: 1.4em;
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+}
+
+h1 {
+    text-align: center;
+    font-family: monospace;
+    font-size: 50px;
+    padding: 50px 0px;
+    margin: 0;
+    color: white;
+}
+
+h2 {
+    font-family: monospace;
+    font-size: 25px;
+    padding-top: 22px;
+    color: cornsilk;
+}
+
+a {
+    color: black;
+    padding: 10px;
+    text-decoration: none;
+}
+a:hover {
+    background-color: #666;
+}
+.history a{
+    background-color: bisque;
+}
+button {
+    background-color: crimson;
+    color: #ffffffe4;
+    padding: 10px 20px;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+}
+
+button:hover {
+    background-color: #666;
+}
+
+label {
+    color: aliceblue;
+}
+
+
+.container {
+    display: grid;
+    background-color: #000;
+    width:100%;
+    height:max-content;
+    gap: 10px;
+    grid-template-columns: 1.5fr 3fr 0.5fr;
+}
+
+.head {
+    grid-column: span 3;
+}
+.profile {
+    margin: 10px;
+    padding: 10px;
+    font-weight: bold;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    grid-column-start: 4;
+    grid-row-start: 1;
+    grid-row-end: 5;
+    background-color:#1e1e1e;
+}
+
+.profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+}
+
+.name {
+    color: #fff;
+    font-size: 20px;
+    font-weight: bold;
+    text-align: center;
+    margin: 5px;
+}
+
+.logout {
+    background-color: red;
+    padding: 10px;
+}
+.logout:hover {
+    background-color: #666;
+}
+.history {
+    width: 100%;
+    height: 100%;
+    background-color: #343434;
+}
+
+.precode {
+    max-width: 20vw;
+    max-height: 20vw;
+    color: blanchedalmond;
+    overflow-x: auto;
+    overflow-y: auto;
+    padding-left: 5px;
+}
+
+#input {
+    color: white;
+    height: 70px;
+    background-color: #343434;
+    border: 1px solid white;
+}
+
+.output {
+    grid-column: span 3;
+    height: fit-content;
+}
+
+.outputscr {
+    color: white;
+    height: 200px;
+    width: 100%;
+    overflow: auto;
+    border: 1px solid whitesmoke;
+}
+
+.precode::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #1e1e1e;
+}
+.precode::-webkit-scrollbar-corner{
+    background-color: #1e1e1e;
+}
+.precode::-webkit-scrollbar-thumb {
+    background-color: #444;
+}
+
+.precode::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}
+
+.precode::-webkit-scrollbar-track-piece {
+    background-color: #1e1e1e;
+}
+
+.outputscr::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+    background-color: #1e1e1e;
+}
+.outputscr::-webkit-scrollbar-corner{
+    background-color: #1e1e1e;
+}
+.outputscr::-webkit-scrollbar-thumb {
+    background-color: #444;
+}
+
+.outputscr::-webkit-scrollbar-thumb:hover {
+    background-color: #666;
+}
+
+.outputscr::-webkit-scrollbar-track-piece {
+    background-color: #1e1e1e;
+}
